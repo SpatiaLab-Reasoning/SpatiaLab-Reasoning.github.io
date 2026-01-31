@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SpatiaLab | Can Vision–Language Models Perform Spatial Reasoning in the Wild?</title>
+<meta name="description" content="SpatiaLab: benchmark for spatial reasoning in vision-language models. Includes dataset, tasks, figures, and full results tables." />
+
+    <meta name="author" content="Computational Intelligence and Operations Laboratory (CIOL) and Qatar Computing Research Institute (QCRI)">
+    <meta property="og:image" content="images/overview_fig.png">
+    <link rel="shortcut icon" href="images/logo.png" type="image/png">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <div class="logo">
+          <img src="images/logo.png" alt="SpatiaLab logo" />
+        </div>
+        <div>
+          <h1>SpatiaLab</h1>
+          <div class="subtitle">Can vision–language models perform spatial reasoning in the wild?</div>
+        </div>
+      </div>
+
+      <nav aria-label="Main">
+        <a href="#overview">Overview</a>
+        <a href="#benchmark">Benchmark</a>
+        <a href="#tasks">Tasks</a>
+        <a href="#results">Results</a>
+        <a href="#methods">Methods</a>
+        <a href="#cite">Cite</a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <main class="hero" id="overview">
+      <div class="hero-grid-single">
+        <div>
+          <div class="pill">ICLR 2026</div>
+          <div class="pill">1,400 visual QA pairs</div>
+          <div class="pill">6 categories • 30 subcategories</div>
+          <div class="pill">MCQ + Open-ended</div>
+
+          <h2 style="margin-top:14px; font-size: 36px;">SpatiaLab: Can Vision–Language Models Perform Spatial Reasoning in the Wild?</h2>
+          <p class="meta" style="margin-top:10px;font-size:15px; font-weight: bold; width: 80%; color: rgb(191, 214, 245);">
+            Azmine Toushik Wasi, Wahid Faisal, Abdur Rahman, Mahfuz Ahmed Anik, Munem Shahriar, Mohsin Mahmud Topu, Sadia Tasnim Meem, Rahatun Nesa Priti, Sabrina Afroz Mitu, Md. Iqramul Hoque, Shahriyar Zaman Ridoy, Mohammed Eunus Ali, Majd Hawasly, Mohammad Raza, Md Rizwan Parvez
+          </p>
+          <p style="margin-top:-2px;font-size:13px;font-weight: normal; width: 70%; color: rgb(146, 173, 211);">
+            Computational Intelligence and Operations Laboratory (CIOL) • 
+            Shahjalal University of Science and Technology (SUST) • 
+            <!-- BRAC University • 
+            North South University (NSU) •  -->
+            Monash University • 
+            Qatar Computing Research Institute (QCRI)
+          </p>
+          <!-- <p class="lead">Spatial reasoning is fundamental to real-world embodied AI. SpatiaLab provides a comprehensive evaluation suite (1,400 QA pairs) across six core spatial categories: Relative Positioning, Depth & Occlusion, Orientation, Size & Scale, Spatial Navigation, and 3D Geometry. It exposes large gaps between SOTA models and humans.</p> -->
+
+          <p style="margin-top:-2px;font-size:13px;font-weight: normal; width: 70%; color: rgb(146, 173, 211);">
+           Accepted to <b>The Fourteenth International Conference on Learning Representations (ICLR 2026)</b>
+          </p>
+          <p style="margin-top:12px;" >
+            <a class="download-btn" href="https://openreview.net/forum?id=fWWUPOb0CT" download>📄 OpenReview/a>
+            <a class="download-btn" href="#" download>📄 arXiv</a>
+            <a class="download-btn" href="#" download>🤗 Hugging Face</a>
+            <a class="download-btn" href="#" download>Kaggle </a>
+            <a class="download-btn" href="#" download>GitHub</a>
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Boxed overview figure (inside .wrap content width) -->
+    <div class="figure" style="margin-top:14px">
+    <p class="lead" style="text-align: left; margin-bottom: 16px; color: rgb(221, 221, 221);">
+            <strong>Spatial reasoning</strong> is fundamental to human intelligence and real-world embodied AI. SpatiaLab provides a comprehensive evaluation suite (1,400 QA pairs) across six core spatial categories: Relative Positioning, Depth & Occlusion, Orientation, Size & Scale, Spatial Navigation, and 3D Geometry. It exposes large gaps between SOTA models and humans.
+        </p>
+
+      <img class="resp" src="images/overview_fig.png" alt="SpatiaLab overview figure (boxed)" />
+    </div>
+
+    <!-- BENCHMARK -->
+    <section id="benchmark">
+      <h2>Benchmark Structure and Categorization</h2>
+  <!-- <p class="meta">SpatiaLab comprises <strong>1,400</strong> validated QA items organized into <strong>6 main categories</strong> and <strong>30 subcategories</strong> (≥25 QA per subcategory; ≥200 per main category). It supports both multiple-choice and open-ended tasks.</p> -->
+
+      <div class="columns" style="margin-top:14px">
+        <div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Example sub-tasks (5 each)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Relative Positioning</td>
+                  <td>Left/Right, Above/Below, Between, Adjacency, Corner/Angle</td>
+                </tr>
+                <tr>
+                  <td>Depth &amp; Occlusion</td>
+                  <td>Partial occlusion, Complete occlusion, Layer order, Reflection/visibility, Hidden feature</td>
+                </tr>
+                <tr>
+                  <td>Orientation</td>
+                  <td>Rotation angle, Facing, Tilt, Tool handedness, Mirror</td>
+                </tr>
+                <tr>
+                  <td>Size &amp; Scale</td>
+                  <td>Relative size, Scale ratio, Big/Small, Proportion, Size consistency</td>
+                </tr>
+                <tr>
+                  <td>Spatial Navigation</td>
+                  <td>Path existence, Obstacle avoidance, Turn sequence, Viewpoint visibility, Accessibility</td>
+                </tr>
+                <tr>
+                  <td>3D Geometry</td>
+                  <td>3D containment, Intersection, Volume ordering, Pose matching, Stability</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="figure figure--light">
+          <img class="resp" data-zoomable="true" style="width: 80%;" src="images/pie-chart.png" alt="SpatiaLab overview figure" tabindex="0" role="button" aria-label="Open pie chart">
+          <span class="zoom-hint" aria-hidden="true">Click to zoom</span>
+        </aside>
+      </div>
+      
+      <!-- Full-width Data sources & QC (moved out of aside so image can use full content width) -->
+      <div style="margin-top:12px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);">
+        <h3>Data Collection and Annotation</h3>
+        <p class="meta">Web crawling, targeted retrieval, and manual snapshots. 3-stage annotation / verification to produce the final 1,400 QA items.</p>
+        <img class="resp" src="images/data_pipeline.png" alt="Data pipeline figure (export Figure 3 here)">
+      </div>
+    </section>
+
+    <!-- TASKS -->
+    <section id="tasks">
+      <h2>Task formats & sample instances</h2>
+  <p class="meta">Every subcategory includes MCQ and open-ended forms so we can measure discriminative accuracy and generative reasoning capacity. Representative examples below.</p>
+
+      <div style="margin-top:12px;">
+        <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);text-align:center">
+          <img class="resp" src="images/examples.png" alt="Combined example: MCQ and Open-ended" />
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <h4>Annotation & QC</h4>
+  <p class="meta">Annotators were trained; items passed a 3-stage review to produce gold-standard annotations. Fleiss’ kappa among annotators: 0.774; LLM judge agreement: Cohen’s kappa ≈ 0.738 (details in appendix).</p>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results">
+      <h2>Results</h2>
+  <p class="meta">Tables below are transcribed from the uploaded paper PDF.</p>
+
+      <!-- Table 2: MCQ -->
+      <h3 style="margin-top:12px">Multiple Choice Evaluation Accuracy (%) on SpatiaLab-MCQ</h3>
+      <div class="table-wrap" aria-labelledby="table2">
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>3D Geom.<br/>(#238)</th>
+              <th>Dep. & Occu.<br/>(#259)</th>
+              <th>Orientation<br/>(#202)</th>
+              <th>Relat. Posit.<br/>(#212)</th>
+              <th>Size & Scale<br/>(#252)</th>
+              <th>Spati. Navig.<br/>(#237)</th>
+              <th>Overall<br/>(#1400)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Random Choice</td><td>25.00</td><td>25.00</td><td>25.00</td><td>25.00</td><td>25.00</td><td>25.00</td><td>25.00</td></tr>
+
+            <!-- Proprietary -->
+            <tr><td>GPT-4o-mini</td><td>47.06</td><td>39.00</td><td>47.03</td><td>47.17</td><td>49.60</td><td>49.79</td><td>46.50</td></tr>
+            <tr><td>GPT-5-mini</td><td>48.74</td><td>54.83</td><td>60.40</td><td>62.74</td><td>44.84</td><td>56.54</td><td>54.29</td></tr>
+            <tr><td>Gemini-2.0-Flash</td><td>47.06</td><td>55.21</td><td>53.96</td><td>58.02</td><td>54.37</td><td>46.84</td><td>52.50</td></tr>
+            <tr><td>Gemini-2.5-Flash</td><td>44.96</td><td>48.26</td><td>48.02</td><td>56.13</td><td>42.46</td><td>51.05</td><td>48.29</td></tr>
+            <tr><td>Claude 3.5 Haiku</td><td>42.44</td><td>42.08</td><td>46.53</td><td>46.23</td><td>35.71</td><td>45.99</td><td>42.93</td></tr>
+            <tr><td>Mistral Medium 3.1</td><td>46.64</td><td>49.81</td><td>47.52</td><td>61.79</td><td>41.67</td><td>41.77</td><td>47.93</td></tr>
+
+            <!-- Open-Source --><!-- Small --> 
+            <tr><td>InternVL3.5-1B</td><td>33.61</td><td>32.43</td><td>23.27</td><td>37.26</td><td>31.75</td><td>30.80</td><td>31.64</td></tr>
+            <tr><td>InternVL3.5-2B</td><td>34.03</td><td>31.66</td><td>31.68</td><td>40.57</td><td>32.54</td><td>32.49</td><td>33.71</td></tr>
+            <tr><td>Qwen-VL2.5-3B-Instruct</td><td>41.18</td><td>35.52</td><td>46.04</td><td>40.09</td><td>47.22</td><td>39.24</td><td>41.43</td></tr>
+            <tr><td>InternVL3.5-4B</td><td>42.86</td><td>42.86</td><td>42.08</td><td>54.72</td><td>36.51</td><td>42.19</td><td>43.29</td></tr>
+            <tr><td>Gemma-3-4B-it</td><td>43.70</td><td>34.36</td><td>46.53</td><td>45.75</td><td>37.30</td><td>37.97</td><td>40.57</td></tr>
+            <tr><td>Qwen-VL2.5-7B-Instruct</td><td>42.86</td><td>37.84</td><td>42.57</td><td>46.23</td><td>42.06</td><td>35.44</td><td>41.00</td></tr>
+            
+            <!-- Open-source --> <!-- Large --> 
+            <tr><td>Llama-3.2-11B-Vision-Instruct</td><td>26.47</td><td>30.50</td><td>20.30</td><td>42.92</td><td>30.56</td><td>32.07</td><td>30.50</td></tr>
+            <tr><td>Gemma-3-27B-it</td><td>43.28</td><td>40.15</td><td>48.02</td><td>54.25</td><td>48.02</td><td>47.26</td><td>46.57</td></tr>
+            <tr><td>Qwen-VL2.5-32B-Instruct</td><td>41.18</td><td>40.15</td><td>46.53</td><td>45.28</td><td>45.24</td><td>41.77</td><td>43.21</td></tr>
+            <tr class="section"><td>InternVL3.5-72B</td><td>50.00</td><td>57.14</td><td>53.47</td><td>66.04</td><td>49.21</td><td>54.85</td><td><strong>54.93</strong></td></tr>
+            <tr><td>Qwen-VL2.5-72B-Instruct</td><td>47.06</td><td>48.65</td><td>51.98</td><td>54.25</td><td>43.65</td><td>48.95</td><td>48.86</td></tr>
+            <tr><td>Llama-3.2-90B-Vision-Instruct</td><td>46.22</td><td>52.12</td><td>50.50</td><td>58.96</td><td>46.83</td><td>48.52</td><td>50.36</td></tr>
+
+            <!-- Reasoning models -->
+            <tr><td>o4-mini-medium</td><td>51.26</td><td>58.30</td><td>54.95</td><td>64.15</td><td>40.87</td><td>51.48</td><td>53.21</td></tr>
+            <tr><td>Gemini-2-Flash-Thinking</td><td>37.82</td><td>41.31</td><td>41.58</td><td>45.75</td><td>50.40</td><td>43.04</td><td>43.36</td></tr>
+            <tr><td>Gemini-2.5-Flash-Thinking</td><td>45.80</td><td>53.67</td><td>52.97</td><td>56.60</td><td>55.16</td><td>53.59</td><td>52.93</td></tr>
+
+            <!-- Spatial Reasoning specialists -->
+            <tr><td>SpaceOm</td><td>42.44</td><td>38.61</td><td>48.02</td><td>37.74</td><td>42.86</td><td>39.24</td><td>41.36</td></tr>
+            <tr><td>SpaceThinker-Qwen2.5VL-3B</td><td>40.34</td><td>37.84</td><td>47.03</td><td>38.21</td><td>43.25</td><td>37.97</td><td>40.64</td></tr>
+            <tr><td>SpaceQwen2.5-VL-3B-Instruct</td><td>31.51</td><td>35.14</td><td>37.62</td><td>37.74</td><td>50.79</td><td>47.26</td><td>40.14</td></tr>
+
+            <tr class="section"><td>Human Baseline</td><td>93.70</td><td>74.13</td><td>91.58</td><td>91.51</td><td>88.89</td><td>87.76</td><td><strong>87.57</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Table 3: Open-ended -->
+      <h3 style="margin-top:18px">Open-ended Evaluation Accuracy (%) on SpatiaLab-OPEN</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>3D Geom.<br/>(#238)</th>
+              <th>Dep. & Occu.<br/>(#259)</th>
+              <th>Orientation<br/>(#202)</th>
+              <th>Relat. Posit.<br/>(#212)</th>
+              <th>Size & Scale<br/>(#252)</th>
+              <th>Spati. Navig.<br/>(#237)</th>
+              <th>Overall<br/>(#1400)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Proprietary -->
+            <tr><td>GPT-4o-mini</td><td>23.53</td><td>16.60</td><td>23.27</td><td>30.66</td><td>17.86</td><td>21.94</td><td>26.00</td></tr>
+            <tr class="section"><td><strong>GPT-5-mini</strong></td><td>45.38</td><td>34.75</td><td>37.13</td><td>49.53</td><td>42.46</td><td>37.13</td><td><strong>40.93</strong></td></tr>
+            <tr><td>Gemini-2.0-Flash</td><td>31.93</td><td>24.32</td><td>27.23</td><td>31.13</td><td>26.19</td><td>24.47</td><td>27.43</td></tr>
+            <tr><td>Gemini-2.5-Flash</td><td>34.03</td><td>26.64</td><td>31.68</td><td>38.68</td><td>26.59</td><td>29.54</td><td>30.93</td></tr>
+            <tr><td>Claude 3.5 Haiku</td><td>26.05</td><td>18.92</td><td>24.75</td><td>25.94</td><td>20.24</td><td>21.10</td><td>22.64</td></tr>
+            <tr><td>Mistral Medium 3.1</td><td>25.21</td><td>19.31</td><td>21.78</td><td>29.25</td><td>15.08</td><td>16.88</td><td>21.00</td></tr>
+
+            <!-- Open-source --> <!-- Small --> 
+            <tr><td>InternVL3.5-1B</td><td>05.88</td><td>09.65</td><td>09.90</td><td>13.68</td><td>09.13</td><td>10.13</td><td>09.64</td></tr>
+            <tr><td>InternVL3.5-2B</td><td>12.18</td><td>11.20</td><td>10.89</td><td>23.58</td><td>11.90</td><td>18.14</td><td>14.50</td></tr>
+            <tr><td>Qwen-VL2.5-3B-Instruct</td><td>15.55</td><td>08.49</td><td>15.35</td><td>10.85</td><td>18.25</td><td>09.28</td><td>12.93</td></tr>
+            <tr><td>InternVL3.5-4B</td><td>19.33</td><td>17.76</td><td>15.84</td><td>19.81</td><td>16.27</td><td>18.99</td><td>18.00</td></tr>
+            <tr><td>Gemma-3-4B-it</td><td>20.17</td><td>13.13</td><td>14.85</td><td>23.58</td><td>15.08</td><td>19.83</td><td>17.64</td></tr>
+            <tr><td>Qwen-VL2.5-7B-Instruct</td><td>15.13</td><td>15.83</td><td>20.30</td><td>27.83</td><td>15.87</td><td>19.83</td><td>18.86</td></tr>
+            
+            <!-- Open-source --> <!-- Large --> 
+            <tr><td>Llama-3.2-11B-Vision-Instruct</td><td>16.81</td><td>16.99</td><td>22.28</td><td>25.00</td><td>13.49</td><td>18.57</td><td>18.57</td></tr>
+            <tr><td>Gemma-3-27B-it</td><td>22.69</td><td>16.22</td><td>24.75</td><td>34.43</td><td>22.62</td><td>21.94</td><td>23.43</td></tr>
+            <tr><td>InternVL3.5-72B</td><td>22.69</td><td>20.46</td><td>20.30</td><td>31.60</td><td>19.84</td><td>26.16</td><td>23.36</td></tr>
+            <tr><td>Qwen-VL2.5-72B-Instruct</td><td>26.89</td><td>20.85</td><td>25.25</td><td>30.66</td><td>24.60</td><td>20.68</td><td>24.64</td></tr>
+            <tr><td>Llama-3.2-90B-Vision-Instruct</td><td>22.69</td><td>23.17</td><td>21.29</td><td>28.30</td><td>21.83</td><td>27.00</td><td>24.00</td></tr>
+            <tr><td>GLM-4.5V-106B-MoE</td><td>31.09</td><td>20.46</td><td>25.25</td><td>26.42</td><td>24.21</td><td>24.47</td><td>25.21</td></tr>
+
+            <!-- Reasoning -->
+            <tr><td>o4-mini-medium</td><td>40.76</td><td>32.82</td><td>32.18</td><td>42.92</td><td>44.05</td><td>34.18</td><td>37.86</td></tr>
+            <tr><td>Gemini-2-Flash-Thinking</td><td>31.09</td><td>27.41</td><td>31.19</td><td>34.43</td><td>29.37</td><td>29.54</td><td>30.36</td></tr>
+            <tr><td>Gemini-2.5-Flash-Thinking</td><td>37.14</td><td>45.45</td><td>36.36</td><td>37.14</td><td>21.74</td><td>22.22</td><td>32.77</td></tr>
+
+            <!-- Spatial specialists -->
+            <tr><td>SpaceOm</td><td>12.61</td><td>06.95</td><td>15.84</td><td>11.79</td><td>18.65</td><td>12.24</td><td>12.93</td></tr>
+            <tr><td>SpaceThinker-Qwen2.5VL-3B</td><td>13.45</td><td>09.27</td><td>17.82</td><td>10.38</td><td>19.44</td><td>10.13</td><td>13.36</td></tr>
+            <tr><td>SpaceQwen2.5-VL-3B-Instruct</td><td>12.61</td><td>03.86</td><td>13.86</td><td>09.43</td><td>11.90</td><td>11.39</td><td>10.36</td></tr>
+
+            <tr class="section"><td>Human Baseline</td><td>73.53</td><td>50.19</td><td>70.30</td><td>69.81</td><td>65.48</td><td>62.87</td><td><strong>64.93</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <div style="margin-top:18px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02)">
+        <h3>Key Takeways</h3>
+      <div class="meta">
+        <ul>
+        <li style="padding-top: 2px;padding-bottom: 2px;"> 
+            <strong>Overall Findings:</strong>
+            <ul>
+            <li style="padding-top: 2px;padding-bottom: 2px;">
+                <strong>SpatiaLab-MCQ:</strong>
+                <ul>
+                <li style="padding-top: 2px;padding-bottom: 2px;">Model accuracies vary from ~30–55% (random choice = 25%), human baseline = 87.57%.</li>
+                <li style="padding-top: 2px;padding-bottom: 2px;">Top models include InternVL3.5-72B (54.93%), GPT-5-mini (54.29%), o4-mini (53.21%), and Gemini-2.5-Flash-Thinking (52.93%).</li>
+                <li style="padding-top: 2px;padding-bottom: 2px;">Model scale alone is not determinative (e.g., Llama-3.2-11B = 30.50%).</li>
+                <li style="padding-top: 2px;padding-bottom: 2px;">Orientation and 3D Geometry subtasks show highest performance (>60% for several models); Spatial Navigation, Depth & Occlusion, Size & Scale are harder.</li>
+                <li style="padding-top: 2px;padding-bottom: 2px;">Spatially specialized models (SpaceOm, SpaceThinker, SpaceQwen) achieve mid-40s to low-40s, showing specialization does not guarantee higher MCQ accuracy.</li>
+                <li style="padding-top: 2px;padding-bottom: 2px;">Depth & Occlusion and Size & Scale performance varies across architectures, highlighting differences in inductive biases or training data.</li>
+                </ul>
+            </li>
+            <li style="padding-top: 2px;padding-bottom: 2px;">
+                <strong>SpatiaLab-Open:</strong>
+                <ul>
+                <li style="padding-top: 2px;padding-bottom: 2px;">Open-ended accuracy ranges from ~9.6% (InternVL3.5-1B) to 40.9% (GPT-5-mini), human baseline = 64.9%.</li>
+                <li style="padding-top: 2px;padding-bottom: 2px;">Proprietary and reasoning-tuned models lead (GPT-5-mini 40.93%, o4-mini 37.86%, Gemini-2.5-Flash-Thinking 32.77%).</li>
+                <li style="padding-top: 2px;padding-bottom: 2px;">Small open-source models cluster at the bottom (~10–15%), very large models improve modestly (20–25%).</li>
+                <li style="padding-top: 2px;padding-bottom: 2px;">Spatial specialists show limited open-ended performance (10–13%), indicating architecture or task specialization alone is insufficient.</li>
+                <li style="padding-top: 2px;padding-bottom: 2px;">Orientation and relative position subtasks have comparatively higher performance (GPT-5-mini Rel.Pos = 49.53%, Ori = 37.13%), while depth, size, and navigation remain difficult (<30%).</li>
+                <li style="padding-top: 2px;padding-bottom: 2px;">Multi-step grounding and perceptual reasoning are bottlenecks for open-ended generation.</li>
+                </ul>
+            </li>
+            </ul>
+        </li>
+
+        <li style="padding-top: 2px;padding-bottom: 2px;">
+            <strong>5.2 Performance Drop in Open-Ended Evaluation Compared to MCQ</strong>
+            <ul>
+            <li style="padding-top: 2px;padding-bottom: 2px;">Average MCQ→Open-ended gap across 25 models = 23.0% (σ = 5.5%), subtask gaps range 22.89% (navigation) to 24.57% (3D geometry).</li>
+            <li style="padding-top: 2px;padding-bottom: 2px;">Specialist models exhibit largest gaps (~27%), especially in navigation (up to 36.68%) and orientation (34.44%).</li>
+            <li style="padding-top: 2px;padding-bottom: 2px;">Reasoning-oriented models have smaller gaps (~19%) and lower variance, reflecting stabilizing effect of instruction-tuning and CoT decoding.</li>
+            <li style="padding-top: 2px;padding-bottom: 2px;">Negative or near-zero gaps (e.g., Llama-3.2-11B: -1.98 in Depth & Occlusion; o4-mini: -3.18 in Relative Position) indicate MCQ distractors can misrepresent competence.</li>
+            <li style="padding-top: 2px;padding-bottom: 2px;">Format sensitivity likely arises from MCQ structure, specialization bias, sequential reasoning challenges, and generative calibration differences.</li>
+            <li style="padding-top: 2px;padding-bottom: 2px;">Recommendation: complement MCQs with open-ended evaluations, audit distractors, use stepwise generation or instruction-tuning, and report per-subtask diagnostics.
+            </li>
+            </ul>
+        </li>
+        </ul>
+        </div>
+
+<h3 style="margin-top:12px">Error Analysis</h3>
+      <div class="meta">
+
+<ul>
+  <li style="padding-top: 2px;padding-bottom: 2px;">
+    <strong>SPATIALAB-MCQ:</strong>
+    <ul>
+      <li style="padding-top: 2px;padding-bottom: 2px;">VLMs achieve selective peaks but lack holistic spatial competence .</li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Closed-source models reach high scores (e.g., 85.71% in Stacking Orientation) but collapse to near-chance in Relative Size Comparison.</li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Open-source scaling improves ceilings (80.56% in Corner/Angle Positioning) but catastrophic failures remain (2.0% in Object Rotation).</li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Reasoning-augmented and spatially specialized models add localized gains (occlusion inference, navigation) but remain below 55% in many physical abstraction tasks (Gravity Effects, Stability Prediction).</li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Error patterns reveal weaknesses in:
+        <ul>
+          <li style="padding-top: 2px;padding-bottom: 2px;">Embodied reasoning (Tool Handedness)</li>
+          <li style="padding-top: 2px;padding-bottom: 2px;">Recursive relational chaining (Pathway Existence)</li>
+          <li style="padding-top: 2px;padding-bottom: 2px;">Non-local cues (Reflective Surfaces)</li>
+        </ul>
+      </li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Stronger results in Obstacle Avoidance suggest shortcut exploitation rather than robust planning.</li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Conclusion: Current VLMs rely on surface correlations and lack stable encodings for orientation, physics, and compositional logic. Progress requires richer training distributions and architectural mechanisms for geometric and reference-frame grounding.</li>
+    </ul>
+  </li>
+
+  <li style="padding-top: 2px;padding-bottom: 2px;">
+    <strong>SPATIALAB-OPEN:</strong>
+    <ul>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Top closed-source models (e.g., GPT-5-mini: 58.14% in Directional Relations) collapse on tasks like Proximity Gradients.</li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Large open-source models show strong Depth & Occlusion performance (e.g., 60%) but fail on Proximity (9.3%).</li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Smaller models exhibit isolated strengths (e.g., 26% in Relative Size Comparison) but often break down completely (0% in Betweenness).</li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Reasoning-tuned models show promise (Gemini-2.5-Flash-Thinking = 75% in Tool Handedness) yet similar models fail in single digits.</li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Specialized spatial models perform worst overall (20%) and frequently fail core relational tasks.</li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Failure patterns highlight systemic weaknesses in:
+        <ul>
+          <li style="padding-top: 2px;padding-bottom: 2px;">Occlusion handling</li>
+          <li style="padding-top: 2px;padding-bottom: 2px;">Orientation</li>
+          <li style="padding-top: 2px;padding-bottom: 2px;">Multi-step relational chaining</li>
+        </ul>
+      </li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Partial success on size & scale cues indicates reliance on superficial correlations.</li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Root causes: missing spatial analogy representations, architectural limits, brittle reasoning pipelines. Moving forward requires unified geometric encodings, physics-aware reasoning, and embodied data.</li>
+    </ul>
+  </li>
+
+  <li style="padding-top: 2px;padding-bottom: 2px;">
+    <strong>Qualitative Error Analysis:</strong>
+    <ul>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Failures cluster into recurring classes, not random noise.</li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Common error types:
+        <ul>
+          <li style="padding-top: 2px;padding-bottom: 2px;"><strong>Spatial mislocalization:</strong> Confusing referents in crowded scenes.</li>
+          <li style="padding-top: 2px;padding-bottom: 2px;"><strong>Perspective and scale mistakes:</strong> Overreliance on object-size priors.</li>
+          <li style="padding-top: 2px;padding-bottom: 2px;"><strong>Occlusion/ordering failures:</strong> Especially with thin or partially hidden structures.</li>
+          <li style="padding-top: 2px;padding-bottom: 2px;"><strong>Attribute confusion:</strong> Mixing perceptual and functional properties.</li>
+          <li style="padding-top: 2px;padding-bottom: 2px;"><strong>Ungrounded open-ended reasoning:</strong> Fluent narratives not grounded in visual input.</li>
+          <li style="padding-top: 2px;padding-bottom: 2px;"><strong>Multi-cue integration failures:</strong> Struggle to combine depth, relative size, and ordering.</li>
+          <li style="padding-top: 2px;padding-bottom: 2px;"><strong>Poor confidence calibration:</strong> Especially in open-ended generative tasks.</li>
+        </ul>
+      </li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Diagnostic findings: Models ignore minimal decisive visual features, rely on brittle heuristics, and fail to update with counterfactual edits.</li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Root causes: insufficient object-centric binding, lack of geometric supervision, training objectives favor plausibility over grounding.</li>
+      <li style="padding-top: 2px;padding-bottom: 2px;">Conclusion: Current VLMs achieve strong coarse perception but struggle with multi-cue integration and grounded reasoning, highlighting the need for geometry-aware supervision, multi-scale feature retention, and verification pipelines.</li>
+    </ul>
+  </li>
+</ul>
+      </div>
+      </div>
+    </section>
+
+    <!-- METHODS -->
+    <section id="methods">
+      <h2>Methods</h2>
+  <p class="meta">Images collected via web crawling, targeted retrieval, and manual capture; annotations via trained annotators with 3-tier QC. Evaluation uses direct prompting for MCQ and LLM judge with human validation for open-ended items. See paper for exact prompts and appendices.</p>
+
+      <h3 style="margin-top:12px">Evaluation protocol</h3>
+      <ul class="meta">
+        <li style="padding-top: 2px;padding-bottom: 2px;">MCQ: models return option number; automatic comparison against ground truth.</li>
+  <li style="padding-top: 2px;padding-bottom: 2px;">Open-ended: free-form answers judged by an LLM judge and compared against human majority vote (LLM-human agreement reported).</li>
+        <li style="padding-top: 2px;padding-bottom: 2px;">Metrics: accuracy; Cohen’s kappa and Fleiss’ kappa for inter-annotator / judge agreement.</li>
+      </ul>
+
+      <h3 style="margin-top:12px">Performance Improvement Approaches</h3>
+      <div class="meta">
+        <ul>
+        <li style="padding-top: 2px;padding-bottom: 2px;">
+            <strong>Inherent Reasoning Mechanisms:</strong> Models with built-in reasoning consistently outperform baselines across both MCQ and open-ended tasks, with the largest gains in relational and orientation categories (e.g., +13.1% in Relative Positioning for MCQs). 
+            While reasoning stabilizes open-ended performance, improvements remain uneven—particularly declining in Size & Scale—indicating that reasoning modules boost logical consistency but do not fully solve grounding or scale sensitivity.
+
+        </li>
+
+        <li style="padding-top: 2px;padding-bottom: 2px;">
+            <strong>Chain-of-Thought (CoT) Prompting:</strong> CoT prompting alone provides limited benefits and sometimes reduces accuracy, with orientation tasks showing the only consistent improvement. 
+            Step-by-step reasoning aids directional alignment but struggles on perceptually grounded tasks such as depth, scale, and navigation, occasionally amplifying flawed priors.
+
+        </li>
+
+        <li style="padding-top: 2px;padding-bottom: 2px;">
+            <strong>Chain-of-Thought (CoT) Prompting with Self-Reflection:</strong> Incorporating self-reflection with CoT yields modest gains in MCQ tasks, particularly for geometry and depth, but does not generalize to open-ended tasks.
+
+
+        <li style="padding-top: 2px;padding-bottom: 2px;">
+            <strong>Supervised Fine-Tuning (SFT):</strong> SFT consistently improves MCQ accuracy across all spatial reasoning categories, but transfer to open-ended tasks is limited or negative, suggesting overfitting to task-specific distributions.
+            The drop in generative performance may result from biased internal representations and catastrophic forgetting of linguistic priors during fine-tuning.
+        </li>
+
+        <li style="padding-top: 2px;padding-bottom: 2px;">
+            <strong>AI Agents for Spatial Reasoning:</strong> <strong>SpatioXolver</strong>, a multi-agent system adapted from Xolver, is designed for structured spatial reasoning on images in SpatioLab.
+            Sub-tasks on objects, attributes, relations, or transformations are assigned to specialized agents. 
+            Results show strong gains in orientation (+36% open-ended) but declines in depth, occlusion, and navigation.
+        </li>
+        </ul>
+     </div>
+    </section>
+
+    <!-- CITE & CONTACT -->
+    <section id="cite">
+      <h2>Citation</h2>
+      <p class="meta">Please cite the paper as below:</p>
+      <pre style="background:rgba(255,255,255,0.02);padding:12px;border-radius:8px;color:var(--white)">
+@inproceedings{
+anonymous2026spatialab,
+title={SpatiaLab: Can Vision{\textendash}Language Models Perform Spatial Reasoning in the Wild?},
+author={Azmine Toushik Wasi, Wahid Faisal, Abdur Rahman, Mahfuz Ahmed Anik, Munem Shahriar, Mohsin Mahmud Topu, Sadia Tasnim Meem, Rahatun Nesa Priti, Sabrina Afroz Mitu, Md. Iqramul Hoque, Shahriyar Zaman Ridoy, Mohammed Eunus Ali, Majd Hawasly, Mohammad Raza, Md Rizwan Parvez},
+booktitle={The Fourteenth International Conference on Learning Representations},
+year={2026},
+url={https://openreview.net/forum?id=fWWUPOb0CT}
+}
+      </pre>
+    </section>
+
+    <!-- Institution Logos -->
+    <section style="margin-top:28px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin:0 auto;max-width:1000px;padding:24px;background:rgb(231, 231, 231);border-radius:12px">
+        <!-- Using logo.png as template, different widths but consistent height of 64px -->
+        <img src="images/affiliations/ciol-3.png" alt="CIOL Logo" style="height:64px;width:auto;object-fit:contain;filter:brightness(0.9)">
+        <!-- <img src="images/affiliations/sust.png" alt="SUST Logo" style="border-radius: 12px;height:64px;width:auto;object-fit:contain;filter:brightness(0.9)"> -->
+        <!-- <img src="images/logo.png" alt="BRAC University Logo" style="border-radius: 12px;height:64px;width:auto;object-fit:contain;filter:brightness(0.9)"> -->
+        <!-- <img src="images/logo.png" alt="NSU Logo" style="border-radius: 12px;height:64px;width:auto;object-fit:contain;filter:brightness(0.9)"> -->
+        <img src="images/affiliations/Monash.png" alt="Monash University Logo" style="height:64px;width:auto;object-fit:contain;filter:brightness(0.9)">
+        <img src="images/affiliations/qcri.png" alt="QCRI Logo" style="height:64px;width:auto;object-fit:contain;filter:brightness(0.9)">
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+  </script>
+  <script>
+    // Click-to-zoom for images with data-zoomable — improved to inline SVGs so they render reliably
+    (function(){
+      const zoomables = document.querySelectorAll('img[data-zoomable]');
+      if(!zoomables.length) return;
+
+      // create backdrop element
+      const backdrop = document.createElement('div');
+      backdrop.className = 'zoom-backdrop';
+      backdrop.setAttribute('aria-hidden','true');
+      document.body.appendChild(backdrop);
+
+      async function openZoom(src, alt, original){
+        backdrop.innerHTML = '';
+        const wrapper = document.createElement('div');
+        wrapper.className = 'zoomed-img';
+
+        // If SVG, try to fetch and inline it for reliable rendering
+        if(src && src.toLowerCase().endsWith('.svg')){
+          try{
+            const res = await fetch(src, {cache: 'no-store'});
+            if(res.ok){
+              const text = await res.text();
+              // insert raw svg markup
+              wrapper.innerHTML = text;
+              const svg = wrapper.querySelector('svg');
+              if(svg){
+                svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+                svg.style.maxHeight = '80vh';
+                svg.style.maxWidth = '95vw';
+                svg.style.display = 'block';
+              } else {
+                // fallback to img element if parsing failed
+                const img = document.createElement('img'); img.src = src; img.alt = alt||''; wrapper.appendChild(img);
+              }
+            } else {
+              const img = document.createElement('img'); img.src = src; img.alt = alt||''; wrapper.appendChild(img);
+            }
+          }catch(err){
+            const img = document.createElement('img'); img.src = src; img.alt = alt||''; wrapper.appendChild(img);
+          }
+        } else {
+          const img = document.createElement('img'); img.src = src; img.alt = alt||''; wrapper.appendChild(img);
+        }
+
+        backdrop.appendChild(wrapper);
+        backdrop.classList.add('open');
+        // trap focus
+        wrapper.tabIndex = -1;
+        wrapper.focus();
+        // allow close on click
+        backdrop.addEventListener('click', backdropClose);
+        document.addEventListener('keydown', escClose);
+      }
+
+      function backdropClose(e){
+        if(e.target === backdrop) closeZoom();
+      }
+
+      function escClose(e){
+        if(e.key === 'Escape') closeZoom();
+      }
+
+      function closeZoom(){
+        backdrop.classList.remove('open');
+        backdrop.removeEventListener('click', backdropClose);
+        document.removeEventListener('keydown', escClose);
+        backdrop.innerHTML = '';
+      }
+
+      zoomables.forEach(img=>{
+        img.addEventListener('click', ()=> openZoom(img.src, img.alt, img));
+        img.addEventListener('keypress', (e)=>{ if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openZoom(img.src, img.alt, img); }});
+      });
+    })();
+  </script>
+</body>
+</html>
