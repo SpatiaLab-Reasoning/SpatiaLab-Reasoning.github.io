@@ -27,14 +27,34 @@
         </div>
       </div>
 
-      <nav aria-label="Main">
-        <a href="#overview">Overview</a>
-        <a href="#benchmark">Benchmark</a>
-        <a href="#tasks">Tasks</a>
-        <a href="#results">Results</a>
-        <a href="#methods">Methods</a>
-        <a href="#cite">Cite</a>
-      </nav>
+      <nav aria-label="Main" style="position: relative;">
+  <ul style="list-style: none; margin: 0; padding: 0; display: flex; gap: 12px; align-items: center;">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#benchmark">Benchmark</a></li>
+    <li><a href="#tasks">Tasks</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#cite">Cite</a></li>
+
+    <!-- Dropdown menu -->
+    <li style="position: relative;">
+      <a href="#" style="cursor: pointer;">More Papers ▼</a>
+      <ul style="display: none; position: absolute; top: 100%; left: 0; background: #040e16; color: #fff; padding: 8px 0; margin: 0; list-style: none; border-radius: 6px; min-width: 250px;">
+    <li style="padding: 4px 16px;"><a href="https://TimeSpot-GT.github.io/" style="color: #fff; text-decoration: none;">TimeSpot</a></li>
+        <!-- <li style="padding: 4px 16px;"><a href="#paper2" style="color: #fff; text-decoration: none;">Paper 2</a></li>
+        <li style="padding: 4px 16px;"><a href="#paper3" style="color: #fff; text-decoration: none;">Paper 3</a></li> -->
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+<script>
+  // Simple hover dropdown
+  const dropdown = document.querySelector('nav li[style*="position: relative;"]');
+  const menu = dropdown.querySelector('ul');
+
+  dropdown.addEventListener('mouseenter', () => menu.style.display = 'block');
+  dropdown.addEventListener('mouseleave', () => menu.style.display = 'none');
+</script>
     </header>
 
     <!-- HERO -->
